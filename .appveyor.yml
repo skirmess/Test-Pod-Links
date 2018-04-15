@@ -1,0 +1,23 @@
+# Automatically generated file; DO NOT EDIT.
+
+skip_tags: true
+
+cache:
+  - C:\strawberry -> appveyor.yml
+
+install:
+  - if not exist "C:\strawberry" cinst strawberryperl
+  - set PATH=C:\strawberry\perl\bin;C:\strawberry\perl\site\bin;C:\strawberry\c\bin;%PATH%
+  - cd %APPVEYOR_BUILD_FOLDER%
+  - mkdir C:\tmp
+  - cpanm --verbose --installdeps --notest --skip-satisfied --with-develop .
+
+build_script:
+  - perl Makefile.PL
+  - gmake
+
+test_script:
+  - set AUTOMATED_TESTING=1
+  - set PERL_USE_UNSAFE_INC=0
+  - gmake test
+  - prove -lr xt/author

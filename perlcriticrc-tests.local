@@ -1,0 +1,5 @@
+[-Bangs::ProhibitNumberedNames]
+[-RegularExpressions::ProhibitFixedStringMatches]
+[-RegularExpressions::RequireDotMatchAnything]
+[-RegularExpressions::RequireExtendedFormatting]
+[-RegularExpressions::RequireLineBoundaryMatching]
