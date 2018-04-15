@@ -130,7 +130,6 @@ on develop => sub {
     requires 'Test::PerlTidy';
     requires 'Test::Pod', '1.26';
     requires 'Test::Pod::LinkCheck';
-    requires 'Test::Pod::No404s';
     requires 'Test::Portability::Files';
     requires 'Test::Spelling', '0.12';
     requires 'Test::Version', '0.04';
