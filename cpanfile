@@ -1,7 +1,7 @@
 requires 'Carp';
 requires 'HTTP::Tiny', '0.014';
 requires 'Pod::Simple::SimpleTree';
-requires 'Safe::Isa';
+requires 'Scalar::Util';
 requires 'Test::Builder';
 requires 'Test::Pod';
 requires 'URI';

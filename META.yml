@@ -36,7 +36,7 @@ requires:
   Carp: '0'
   HTTP::Tiny: '0.014'
   Pod::Simple::SimpleTree: '0'
-  Safe::Isa: '0'
+  Scalar::Util: '0'
   Test::Builder: '0'
   Test::Pod: '0'
   URI: '0'

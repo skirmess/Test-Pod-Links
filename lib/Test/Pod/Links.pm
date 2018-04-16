@@ -9,10 +9,10 @@ our $VERSION = '0.001';
 use Carp ();
 use HTTP::Tiny 0.014 ();
 use Pod::Simple::SimpleTree ();
-use Safe::Isa qw($_can);
-use Test::Builder ();
-use Test::Pod     ();
-use URI           ();
+use Scalar::Util            ();
+use Test::Builder           ();
+use Test::Pod               ();
+use URI                     ();
 
 my $TEST = Test::Builder->new();
 
@@ -225,7 +225,7 @@ sub _ua {
 
     if (@_) {
         my $ua = shift;
-        Carp::croak q{ua must have method 'head'} if !$ua->$_can('head');
+        Carp::croak q{ua must have method 'head'} if !Scalar::Util::blessed($ua) || !$ua->can('head');
         $self->{_ua} = $ua;
     }
 
