@@ -23,7 +23,6 @@ my %WriteMakefileArgs = (
     "Scalar::Util" => 0,
     "Test::Builder" => 0,
     "Test::Pod" => 0,
-    "URI" => 0,
     "strict" => 0,
     "warnings" => 0
   },
@@ -59,7 +58,6 @@ my %FallbackPrereqs = (
   "Test::More" => "0.88",
   "Test::Pod" => 0,
   "Test::TempDir::Tiny" => 0,
-  "URI" => 0,
   "autodie" => 0,
   "lib" => 0,
   "strict" => 0,

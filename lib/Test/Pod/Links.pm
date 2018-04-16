@@ -12,7 +12,6 @@ use Pod::Simple::SimpleTree ();
 use Scalar::Util            ();
 use Test::Builder           ();
 use Test::Pod               ();
-use URI                     ();
 
 my $TEST = Test::Builder->new();
 
@@ -148,10 +147,8 @@ sub pod_file_ok {
     $TEST->ok( 1, $parse_msg );
 
     my @links =
-      map { $_->[1] }
-      grep { defined $_->[0] && $_->[0] =~ m{ ^ http (?:s)? $ }xsm }
-      map { [ URI->new($_)->scheme(), $_ ] }
-      map { ${ $_->{to} }[2] }
+      grep { defined && m{ ^ http(?:s)? :// }xsmi }
+      map  { ${ $_->{to} }[2] }
       grep { $_->{type} eq 'url' } $self->_extract_links_from_pod( $pod->root );
 
     my $ignore_regex = $self->_ignore_regex;

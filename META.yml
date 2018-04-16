@@ -39,7 +39,6 @@ requires:
   Scalar::Util: '0'
   Test::Builder: '0'
   Test::Pod: '0'
-  URI: '0'
   perl: '5.006'
   strict: '0'
   warnings: '0'

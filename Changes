@@ -2,6 +2,7 @@ Revision history for Test-Pod-Links
 
 {{$NEXT}}
 
+  - Removed dependency on URI
   - Replaced Safe::Isa::$_can with Scalar::Util::blessed/can to depend on one less non-core dependency
 
 0.001  2018-04-15 15:20:33 UTC

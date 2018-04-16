@@ -4,7 +4,6 @@ requires 'Pod::Simple::SimpleTree';
 requires 'Scalar::Util';
 requires 'Test::Builder';
 requires 'Test::Pod';
-requires 'URI';
 requires 'perl', '5.006';
 requires 'strict';
 requires 'warnings';
