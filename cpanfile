@@ -1,9 +1,10 @@
 requires 'Carp';
+requires 'File::Find';
 requires 'HTTP::Tiny', '0.014';
+requires 'Pod::Simple::Search';
 requires 'Pod::Simple::SimpleTree';
 requires 'Scalar::Util';
 requires 'Test::Builder';
-requires 'Test::Pod';
 requires 'perl', '5.006';
 requires 'strict';
 requires 'warnings';
@@ -16,6 +17,7 @@ on configure => sub {
 on test => sub {
     requires 'Cwd';
     requires 'FindBin';
+    requires 'POSIX';
     requires 'Test::Builder::Tester';
     requires 'Test::Fatal';
     requires 'Test::MockModule';

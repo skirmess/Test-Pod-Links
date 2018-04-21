@@ -1,4 +1,6 @@
 [-Bangs::ProhibitNumberedNames]
+[ControlStructures::ProhibitPostfixControls]
+flowcontrol = die skip
 [-RegularExpressions::ProhibitFixedStringMatches]
 [-RegularExpressions::RequireDotMatchAnything]
 [-RegularExpressions::RequireExtendedFormatting]

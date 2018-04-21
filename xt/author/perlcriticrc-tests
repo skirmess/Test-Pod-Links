@@ -41,7 +41,10 @@ verbose = [%p] %m at %f line %l, near '%r'\n
 [ControlStructures::ProhibitLabelsWithSpecialBlockNames]
 [ControlStructures::ProhibitMutatingListFunctions]
 [ControlStructures::ProhibitNegativeExpressionsInUnlessAndUntilConditions]
+
 [ControlStructures::ProhibitPostfixControls]
+flowcontrol = die skip
+
 [ControlStructures::ProhibitUnlessBlocks]
 [ControlStructures::ProhibitUnreachableCode]
 [ControlStructures::ProhibitUntilBlocks]

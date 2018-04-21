@@ -31,7 +31,7 @@ with its arguments.
 
     Test::Pod::Links->new({
         ignore       => 'url_to_ignore',
-        ignore_match => qr{url to skip},
+        ignore_match => qr{url to ignore},
         ua           => HTTP::Tiny->new,
     });
 
@@ -61,7 +61,7 @@ agent.
 ## pod\_file\_ok( FILENAME )
 
 This will run a test for parsing the Pod and another test for every web link
-found in the Pod. It is therefore impossible to know the exact number of
+found in the Pod. It is therefore unlikely to know the exact number of
 tests that will run in advance. Use `done_testing` from [Test::More](https://metacpan.org/pod/Test::More) if
 you call this test directly instead of a `plan`.
 
@@ -70,22 +70,28 @@ and _false_ otherwise.
 
 ## all\_pod\_files\_ok( \[ @entries \] )
 
-Checks all the web links in all files under `@entries`. It runs
-`all_pod_files` from [Test::Pod](https://metacpan.org/pod/Test::Pod) on directories and assumes everything
-else to be a file to be tested. It calls `done_testing` method for you,
-so you can't have already called `plan`.
+Checks all the web links in all files under `@entries` by calling
+`pod_file_ok` on every file. Directories are recursive searched for files
+containing Pod. Everything not a file and not a directory (e.g. a symlink)
+is ignored. It calls `done_testing` or `skip_all` so you can't have
+already called plan.
 
-If `@entries` is empty or not passed, the method calls `all_pod_files`
-from [Test::Pod](https://metacpan.org/pod/Test::Pod) without arguments.
+If `@entries` is empty default directories are searched for files
+containing Pod. The default directories are `blib`, or `lib` if it doesn't
+exist, `bin` and `script`.
 
-`all_pod_files_ok` returns something _true_ if all web links are reachable
+The method `contains_pod` from [Pod::Simple::Search](https://metacpan.org/pod/Pod::Simple::Search) is used to identify
+files that contain Pod.
+
+&lt;all\_pod\_files\_ok> returns something _true_ if all web links are reachable
 and _false_ otherwise.
 
 # EXAMPLES
 
 ## Example 1 Default Usage
 
-Check the web links in all files in the `lib` directory.
+Check the web links in all files in the `bin`, `script` and `lib`
+directory.
 
     use 5.006;
     use strict;
@@ -114,10 +120,10 @@ Check the web links in all files in the `lib` directory.
     }
 
     Test::Pod::Links->new->all_pod_files_ok(qw(
-        bin
         corpus/7_links.pod
         corpus/hello
         lib
+        tools
     ));
 
 ## Example 3 Specify a different user agent for [HTTP::Tiny](https://metacpan.org/pod/HTTP::Tiny)
@@ -234,8 +240,7 @@ decide which URLs to skip over.
 
 # SEE ALSO
 
-[HTTP::Tiny](https://metacpan.org/pod/HTTP::Tiny), [Test::More](https://metacpan.org/pod/Test::More), [Test::Pod::LinkCheck](https://metacpan.org/pod/Test::Pod::LinkCheck), [Test::Pod::No404s](https://metacpan.org/pod/Test::Pod::No404s),
-[Test::Pod](https://metacpan.org/pod/Test::Pod)
+[HTTP::Tiny](https://metacpan.org/pod/HTTP::Tiny), [Test::More](https://metacpan.org/pod/Test::More), [Test::Pod::LinkCheck](https://metacpan.org/pod/Test::Pod::LinkCheck), [Test::Pod::No404s](https://metacpan.org/pod/Test::Pod::No404s)
 
 # SUPPORT
 

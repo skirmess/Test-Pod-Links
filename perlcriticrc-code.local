@@ -1,5 +1,4 @@
 [ControlStructures::ProhibitPostfixControls]
 flowcontrol = Carp::croak
 [-Documentation::RequirePodLinksIncludeText]
-[-NamingConventions::Capitalization]
 [-Subroutines::RequireArgUnpacking]
