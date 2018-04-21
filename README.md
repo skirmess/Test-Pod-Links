@@ -4,7 +4,7 @@ Test::Pod::Links - Test Pod for invalid HTTP/S links
 
 # VERSION
 
-Version 0.001
+Version 0.002
 
 # SYNOPSIS
 
