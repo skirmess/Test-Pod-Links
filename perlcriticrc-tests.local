@@ -1,7 +1,9 @@
 [-Bangs::ProhibitNumberedNames]
 [ControlStructures::ProhibitPostfixControls]
-flowcontrol = die skip
+flowcontrol = BAIL_OUT die skip
 [-RegularExpressions::ProhibitFixedStringMatches]
 [-RegularExpressions::RequireDotMatchAnything]
 [-RegularExpressions::RequireExtendedFormatting]
 [-RegularExpressions::RequireLineBoundaryMatching]
+[Subroutines::RequireFinalReturn]
+terminal_funcs = BAIL_OUT

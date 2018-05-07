@@ -3,7 +3,6 @@
 use 5.006;
 use strict;
 use warnings;
-use autodie;
 
 use Test::MockModule;
 use Test::More 0.88;
@@ -22,7 +21,7 @@ sub main {
     note('no file found in cwd');
     {
         my $cwd = cwd();
-        chdir tempdir();
+        _chdir( tempdir() );
 
         my $done_testing = 0;
         my $skip_all     = 0;
@@ -39,7 +38,7 @@ sub main {
         isa_ok( $skip_all_args[0], 'Test::Builder', '... a Test::Builder object' );
         is( $skip_all_args[1], "No files found\n", '... and a message' );
 
-        chdir $cwd;
+        _chdir($cwd);
     }
 
     note('no file found in tempdir');
@@ -95,10 +94,10 @@ sub main {
         skip 'The symlink function is unimplemented' if !_symlink_supported();
 
         my $tempdir = tempdir();
-        _touch("$tempdir/file.pm");
-        mkdir "$tempdir/lib";
+        _touch( "$tempdir/file.pm", "=pod\n" );
+        _mkdir("$tempdir/lib");
         my $link = "$tempdir/lib/symlink.pm";
-        symlink '../file.pm', $link;
+        _symlink( '../file.pm', $link );
 
         my $carp = 0;
         my @carp_args;
@@ -128,7 +127,7 @@ sub main {
         skip 'The mkfifo function is unimplemented' if !_fifo_supported();
 
         my $tempdir = tempdir();
-        mkdir "$tempdir/lib";
+        _mkdir("$tempdir/lib");
         my $fifo = "$tempdir/lib/symlink.pm";
         mkfifo $fifo, 0666;    ## no critic (ValuesAndExpressions::ProhibitLeadingZeros)
 
@@ -181,12 +180,12 @@ sub main {
         skip 'The symlink function is unimplemented' if !_symlink_supported();
 
         my $cwd = cwd();
-        chdir tempdir();
+        _chdir( tempdir() );
 
-        mkdir 'lib';
-        mkdir 'tmp';
-        _touch('tmp/file.pod');
-        symlink '../tmp/file.pod', 'lib/file.pod';
+        _mkdir('lib');
+        _mkdir('tmp');
+        _touch( 'tmp/file.pod', "=pod\n" );
+        _symlink( '../tmp/file.pod', 'lib/file.pod' );
 
         my $done_testing = 0;
         my $skip_all     = 0;
@@ -203,7 +202,7 @@ sub main {
         isa_ok( $skip_all_args[0], 'Test::Builder', '... a Test::Builder object' );
         is( $skip_all_args[1], "No files found in (lib)\n", '... and a message' );
 
-        chdir $cwd;
+        _chdir($cwd);
     }
 
     note('symlink to dir in cwd');
@@ -211,15 +210,15 @@ sub main {
         skip 'The symlink function is unimplemented' if !_symlink_supported();
 
         my $cwd = cwd();
-        chdir tempdir();
+        _chdir( tempdir() );
 
-        mkdir 'lib';
-        mkdir 'lib/a';
-        mkdir 'tmp';
-        mkdir 'tmp/a';
-        mkdir 'tmp/a/b';
-        _touch('tmp/a/b/file.pod');
-        symlink '../../tmp/a/b', 'lib/a/b';
+        _mkdir('lib');
+        _mkdir('lib/a');
+        _mkdir('tmp');
+        _mkdir('tmp/a');
+        _mkdir('tmp/a/b');
+        _touch( 'tmp/a/b/file.pod', "=pod\n" );
+        _symlink( '../../tmp/a/b', 'lib/a/b' );
 
         my $done_testing = 0;
         my $skip_all     = 0;
@@ -236,15 +235,15 @@ sub main {
         isa_ok( $skip_all_args[0], 'Test::Builder', '... a Test::Builder object' );
         is( $skip_all_args[1], "No files found in (lib)\n", '... and a message' );
 
-        chdir $cwd;
+        _chdir($cwd);
     }
 
     note('one file in tempdir');
     {
         my $tempdir = tempdir();
-        mkdir "$tempdir/lib";
+        _mkdir("$tempdir/lib");
         my $pod_file = "$tempdir/lib/my.pod";
-        _touch($pod_file);
+        _touch( $pod_file, "=pod\n" );
 
         my $done_testing = 0;
         my $skip_all     = 0;
@@ -268,9 +267,9 @@ sub main {
     note('one file in tempdir (passed as file and dir)');
     {
         my $tempdir = tempdir();
-        mkdir "$tempdir/lib";
+        _mkdir("$tempdir/lib");
         my $pod_file = "$tempdir/lib/my.pod";
-        _touch($pod_file);
+        _touch( $pod_file, "=pod\n" );
 
         my $done_testing = 0;
         my $skip_all     = 0;
@@ -294,10 +293,9 @@ sub main {
     note('one file (wothout Pod) in tempdir');
     {
         my $tempdir = tempdir();
-        mkdir "$tempdir/lib";
+        _mkdir("$tempdir/lib");
         my $pod_file = "$tempdir/lib/my.pm";
-        open my $fh, '>', $pod_file;
-        close $fh;
+        _touch($pod_file);
 
         my $done_testing = 0;
         my $skip_all     = 0;
@@ -318,10 +316,10 @@ sub main {
     note('two file in tempdir');
     {
         my $tempdir = tempdir();
-        mkdir "$tempdir/lib";
+        _mkdir("$tempdir/lib");
         my @pod_files = sort "$tempdir/lib/my_1.pod", "$tempdir/lib/my_2.pod";
         for my $file (@pod_files) {
-            _touch($file);
+            _touch( $file, "=pod\n" );
         }
 
         my $done_testing = 0;
@@ -348,13 +346,13 @@ sub main {
     {
         my $cwd     = cwd();
         my $tempdir = tempdir();
-        mkdir "$tempdir/lib";
+        _mkdir("$tempdir/lib");
         my @pod_files = sort "$tempdir/lib/my_1.pod", "$tempdir/lib/my_2.pod";
         for my $file (@pod_files) {
-            _touch($file);
+            _touch( $file, "=pod\n" );
         }
 
-        chdir $tempdir;
+        _chdir($tempdir);
 
         my $done_testing = 0;
         my $skip_all     = 0;
@@ -375,18 +373,18 @@ sub main {
         my @expected = map { [$_] } @pod_files;
         is_deeply( [@pod_file_ok_args], [@expected], '... with the correct filenames' );
 
-        chdir $cwd;
+        _chdir($cwd);
     }
 
     note('one malformed file');
     {
         my $cwd     = cwd();
         my $tempdir = tempdir();
-        mkdir "$tempdir/lib";
+        _mkdir("$tempdir/lib");
         my $pod_file = "$tempdir/lib/malformed.pod";
-        _touch($pod_file);
+        _touch( $pod_file, "=pod\n" );
 
-        chdir $tempdir;
+        _chdir($tempdir);
 
         my $done_testing = 0;
         my $skip_all     = 0;
@@ -407,16 +405,16 @@ sub main {
 
         is_deeply( [@pod_file_ok_args], [ [$pod_file] ], '... with the correct filenames' );
 
-        chdir $cwd;
+        _chdir($cwd);
     }
 
     note('two file in tempdir (called with filenames)');
     {
         my $tempdir = tempdir();
-        mkdir "$tempdir/lib";
+        _mkdir("$tempdir/lib");
         my @pod_files = sort "$tempdir/lib/my_1.pod", "$tempdir/lib/my_2.pod";
         for my $file (@pod_files) {
-            _touch($file);
+            _touch( $file, "=pod\n" );
         }
 
         my $done_testing = 0;
@@ -444,12 +442,12 @@ sub main {
         my $tempdir = tempdir();
 
         my $cwd = cwd();
-        chdir $tempdir;
+        _chdir($tempdir);
 
-        mkdir "$tempdir/lib";
+        _mkdir("$tempdir/lib");
         my @pod_files = sort 'lib/my_1.pod', 'lib/my_2.pod';
         for my $file (@pod_files) {
-            _touch($file);
+            _touch( $file, "=pod\n" );
         }
 
         my $done_testing = 0;
@@ -471,7 +469,7 @@ sub main {
         my @expected = map { [$_] } @pod_files;
         is_deeply( [@pod_file_ok_args], [@expected], '... with the correct filenames' );
 
-        chdir $cwd;
+        _chdir($cwd);
     }
 
     #
@@ -480,14 +478,20 @@ sub main {
     exit 0;
 }
 
+sub _chdir {
+    my ($dir) = @_;
+
+    my $rc = chdir $dir;
+    BAIL_OUT("chdir $dir: $!") if !$rc;
+    return $rc;
+}
+
 {
     my $_fifo_supported;
 
     sub _fifo_supported {
         if ( !defined $_fifo_supported ) {
             $_fifo_supported = 0;
-
-            no autodie;
 
             ## no critic (ErrorHandling::RequireCheckingReturnValueOfEval)
             eval {
@@ -501,6 +505,22 @@ sub main {
     }
 }
 
+sub _mkdir {
+    my ($dir) = @_;
+
+    my $rc = mkdir $dir;
+    BAIL_OUT("mkdir $dir: $!") if !$rc;
+    return $rc;
+}
+
+sub _symlink {
+    my ( $old_name, $new_name ) = @_;
+
+    my $rc = symlink $old_name, $new_name;
+    BAIL_OUT("symlink $old_name, $new_name: $!") if !$rc;
+    return $rc;
+}
+
 {
     my $_symlink_supported;
 
@@ -508,11 +528,9 @@ sub main {
         if ( !defined $_symlink_supported ) {
             $_symlink_supported = 0;
 
-            no autodie;
-
             ## no critic (ErrorHandling::RequireCheckingReturnValueOfEval)
             eval {
-                symlink q{}, q{};
+                symlink q{}, q{};    ## no critic (InputOutput::RequireCheckedSyscalls)
                 $_symlink_supported = 1;
             };
             ## use critic
@@ -523,13 +541,15 @@ sub main {
 }
 
 sub _touch {
-    my ($file) = @_;
+    my ( $file, @content ) = @_;
 
-    open my $fh, '>>', $file;
-    print {$fh} "=pod\n";
-    close $fh;
+    if ( open my $fh, '>', $file ) {
+        if ( print {$fh} @content ) {
+            return if close $fh;
+        }
+    }
 
-    return;
+    BAIL_OUT("Cannot write file '$file': $!");
 }
 
 # vim: ts=4 sts=4 sw=4 et: syntax=perl

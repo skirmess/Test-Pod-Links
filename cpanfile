@@ -22,8 +22,7 @@ on test => sub {
     requires 'Test::Fatal';
     requires 'Test::MockModule';
     requires 'Test::More', '0.88';
-    requires 'Test::TempDir::Tiny';
-    requires 'autodie';
+    requires 'Test::TempDir::Tiny', '0.017';
     requires 'lib';
     requires 'perl', '5.006';
 };

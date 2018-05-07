@@ -43,7 +43,7 @@ verbose = [%p] %m at %f line %l, near '%r'\n
 [ControlStructures::ProhibitNegativeExpressionsInUnlessAndUntilConditions]
 
 [ControlStructures::ProhibitPostfixControls]
-flowcontrol = die skip
+flowcontrol = BAIL_OUT die skip
 
 [ControlStructures::ProhibitUnlessBlocks]
 [ControlStructures::ProhibitUnreachableCode]
@@ -126,7 +126,10 @@ private_name_regex = _(?!build_)\w+
 
 [Subroutines::ProtectPrivateSubs]
 [Subroutines::RequireArgUnpacking]
+
 [Subroutines::RequireFinalReturn]
+terminal_funcs = BAIL_OUT
+
 [TestingAndDebugging::ProhibitNoStrict]
 [TestingAndDebugging::ProhibitNoWarnings]
 [TestingAndDebugging::ProhibitProlongedStrictureOverride]
