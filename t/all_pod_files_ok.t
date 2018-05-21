@@ -91,7 +91,7 @@ sub main {
 
     note('symlink passed as argument is ignored');
   SKIP: {
-        skip 'The symlink function is unimplemented' if !_symlink_supported();
+        skip 'The symlink function is unimplemented', 1 if !_symlink_supported();
 
         my $tempdir = tempdir();
         _touch( "$tempdir/file.pm", "=pod\n" );
@@ -124,7 +124,7 @@ sub main {
 
     note('fifo passed as argument is ignored');
   SKIP: {
-        skip 'The mkfifo function is unimplemented' if !_fifo_supported();
+        skip 'The mkfifo function is unimplemented', 1 if !_fifo_supported();
 
         my $tempdir = tempdir();
         _mkdir("$tempdir/lib");
@@ -177,7 +177,7 @@ sub main {
 
     note('symlink to file in cwd');
   SKIP: {
-        skip 'The symlink function is unimplemented' if !_symlink_supported();
+        skip 'The symlink function is unimplemented', 1 if !_symlink_supported();
 
         my $cwd = cwd();
         _chdir( tempdir() );
@@ -207,7 +207,7 @@ sub main {
 
     note('symlink to dir in cwd');
   SKIP: {
-        skip 'The symlink function is unimplemented' if !_symlink_supported();
+        skip 'The symlink function is unimplemented', 1 if !_symlink_supported();
 
         my $cwd = cwd();
         _chdir( tempdir() );

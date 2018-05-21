@@ -2,6 +2,7 @@ Revision history for Test-Pod-Links
 
 {{$NEXT}}
 
+  - skip needs $how_many with Test::More < 1.302013_009
   - Removed autodie in tests
 
 0.002  2018-04-21 16:05:12 UTC
