@@ -129,7 +129,7 @@ sub main {
         my $tempdir = tempdir();
         _mkdir("$tempdir/lib");
         my $fifo = "$tempdir/lib/symlink.pm";
-        mkfifo $fifo, 0666;    ## no critic (ValuesAndExpressions::ProhibitLeadingZeros)
+        mkfifo $fifo, 0666;
 
         my $carp = 0;
         my @carp_args;
@@ -495,7 +495,7 @@ sub _chdir {
 
             ## no critic (ErrorHandling::RequireCheckingReturnValueOfEval)
             eval {
-                mkfifo q{}, 0666;    ## no critic (ValuesAndExpressions::ProhibitLeadingZeros)
+                mkfifo q{}, 0666;
                 $_fifo_supported = 1;
             };
             ## use critic
