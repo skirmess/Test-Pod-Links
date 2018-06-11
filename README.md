@@ -26,14 +26,14 @@ Recommendation is to put it into your `xt` instead of your `t` directory.
 
 ## new( \[ ARGS \] )
 
-Returns a new `Test::Pod::Link` instance. `new` takes an optional hash ref
+Returns a new `Test::Pod::Link` instance. `new` takes an optional hash
 with its arguments.
 
-    Test::Pod::Links->new({
+    Test::Pod::Links->new(
         ignore       => 'url_to_ignore',
         ignore_match => qr{url to ignore},
         ua           => HTTP::Tiny->new,
-    });
+    );
 
 The following arguments are supported:
 
@@ -74,7 +74,7 @@ Checks all the web links in all files under `@entries` by calling
 `pod_file_ok` on every file. Directories are recursive searched for files
 containing Pod. Everything not a file and not a directory (e.g. a symlink)
 is ignored. It calls `done_testing` or `skip_all` so you can't have
-already called plan.
+already called `plan`.
 
 If `@entries` is empty default directories are searched for files
 containing Pod. The default directories are `blib`, or `lib` if it doesn't

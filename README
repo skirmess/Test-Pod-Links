@@ -27,14 +27,14 @@ USAGE
 
  new( [ ARGS ] )
 
-    Returns a new Test::Pod::Link instance. new takes an optional hash ref
-    with its arguments.
+    Returns a new Test::Pod::Link instance. new takes an optional hash with
+    its arguments.
 
-        Test::Pod::Links->new({
+        Test::Pod::Links->new(
             ignore       => 'url_to_ignore',
             ignore_match => qr{url to ignore},
             ua           => HTTP::Tiny->new,
-        });
+        );
 
     The following arguments are supported:
 

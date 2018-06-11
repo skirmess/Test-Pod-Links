@@ -290,7 +290,7 @@ sub main {
         is_deeply( [@pod_file_ok_args], [ [$pod_file], [$pod_file] ], '... with the same filename twice' );
     }
 
-    note('one file (wothout Pod) in tempdir');
+    note('one file (without Pod) in tempdir');
     {
         my $tempdir = tempdir();
         _mkdir("$tempdir/lib");

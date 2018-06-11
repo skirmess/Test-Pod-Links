@@ -2,6 +2,7 @@ Revision history for Test-Pod-Links
 
 {{$NEXT}}
 
+  - Fixed documentation of new, arguments are not a hash ref
   - skip needs $how_many with Test::More < 1.302013_009
   - Removed autodie in tests
 

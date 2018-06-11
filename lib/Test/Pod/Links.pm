@@ -319,14 +319,14 @@ Recommendation is to put it into your F<xt> instead of your F<t> directory.
 
 =head2 new( [ ARGS ] )
 
-Returns a new C<Test::Pod::Link> instance. C<new> takes an optional hash ref
+Returns a new C<Test::Pod::Link> instance. C<new> takes an optional hash
 with its arguments.
 
-    Test::Pod::Links->new({
+    Test::Pod::Links->new(
         ignore       => 'url_to_ignore',
         ignore_match => qr{url to ignore},
         ua           => HTTP::Tiny->new,
-    });
+    );
 
 The following arguments are supported:
 
@@ -367,7 +367,7 @@ Checks all the web links in all files under C<@entries> by calling
 C<pod_file_ok> on every file. Directories are recursive searched for files
 containing Pod. Everything not a file and not a directory (e.g. a symlink)
 is ignored. It calls C<done_testing> or C<skip_all> so you can't have
-already called plan.
+already called C<plan>.
 
 If C<@entries> is empty default directories are searched for files
 containing Pod. The default directories are F<blib>, or F<lib> if it doesn't
