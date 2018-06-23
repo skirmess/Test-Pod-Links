@@ -1,5 +1,5 @@
 ---
-abstract: 'Test Pod for invalid HTTP/S links'
+abstract: 'test Pod for invalid HTTP/S links'
 author:
   - 'Sven Kirmess <sven.kirmess@kzone.ch>'
 build_requires:

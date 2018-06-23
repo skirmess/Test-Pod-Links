@@ -293,7 +293,7 @@ __END__
 
 =head1 NAME
 
-Test::Pod::Links - Test Pod for invalid HTTP/S links
+Test::Pod::Links - test Pod for invalid HTTP/S links
 
 =head1 VERSION
 

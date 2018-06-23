@@ -1,6 +1,6 @@
 # NAME
 
-Test::Pod::Links - Test Pod for invalid HTTP/S links
+Test::Pod::Links - test Pod for invalid HTTP/S links
 
 # VERSION
 
