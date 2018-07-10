@@ -27,7 +27,7 @@ sub main {
         #
         like( exception { $obj->pod_file_ok() },      qr{usage: pod_file_ok[(]FILE[)]}, 'pod_file_ok() throws an exception with too few arguments' );
         like( exception { $obj->pod_file_ok(undef) }, qr{usage: pod_file_ok[(]FILE[)]}, '... undef for a file name' );
-        like( exception { $obj->pod_file_ok( 'file', 'name', 'abc' ) }, qr{usage: pod_file_ok[(]FILE[)]}, '... too many arguments' );
+        like( exception { $obj->pod_file_ok( 'file', 'name' ) }, qr{usage: pod_file_ok[(]FILE[)]}, '... too many arguments' );
 
         #
         my $tmp               = tempdir();
