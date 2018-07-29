@@ -2,6 +2,8 @@ Revision history for Test-Pod-Links
 
 {{$NEXT}}
 
+  - Import croak from Carp instead of calling Carp::croak
+  - Removed minimal dependency on Test::TempDir::Tiny 0.017
   - Fixed documentation of new, arguments are not a hash ref
   - skip needs $how_many with Test::More < 1.302013_009
   - Removed autodie in tests

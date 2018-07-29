@@ -1,4 +1,3 @@
-[-Bangs::ProhibitNumberedNames]
 [ControlStructures::ProhibitPostfixControls]
 flowcontrol = BAIL_OUT die skip
 [-RegularExpressions::ProhibitFixedStringMatches]
