@@ -68,23 +68,25 @@ you call this test directly instead of a `plan`.
 `pod_file_ok` returns something _true_ if all web links are reachable
 and _false_ otherwise.
 
-## all\_pod\_files\_ok( \[ @entries \] )
+## all\_pod\_files\_ok
 
-Checks all the web links in all files under `@entries` by calling
-`pod_file_ok` on every file. Directories are recursive searched for files
-containing Pod. Everything not a file and not a directory (e.g. a symlink)
-is ignored. It calls `done_testing` or `skip_all` so you can't have
-already called `plan`.
+Calls the `all_files` method of [Test::XTFiles](https://metacpan.org/pod/Test::XTFiles) to get all the files to
+be tested. Then, `contains_pod` from [Pod::Simple::Search](https://metacpan.org/pod/Pod::Simple::Search) is used to
+identify files that contain Pod.
 
-If `@entries` is empty default directories are searched for files
-containing Pod. The default directories are `blib`, or `lib` if it doesn't
-exist, `bin` and `script`.
+All files that contain Pod will be checked  by calling `pod_file_ok`.
 
-The method `contains_pod` from [Pod::Simple::Search](https://metacpan.org/pod/Pod::Simple::Search) is used to identify
-files that contain Pod.
+It calls `done_testing` or `skip_all` so you can't have already called
+`plan`.
 
 &lt;all\_pod\_files\_ok> returns something _true_ if all web links are reachable
 and _false_ otherwise.
+
+Please see [XT::Files](https://metacpan.org/pod/XT::Files) for how to configure the files to be checked.
+
+WARNING: The API was changed with 0.003. Arguments to `all_pod_files_ok`
+are now silently discarded and the method is now configured with
+[XT::Files](https://metacpan.org/pod/XT::Files).
 
 # EXAMPLES
 
@@ -108,23 +110,16 @@ directory.
 
 ## Example 2 Check non-default directories or files
 
-    use 5.006;
-    use strict;
-    use warnings;
+Use the same test file as in Example 1 and create a `.xtfilesrc` config
+file in the root directory of your distribution.
 
-    use Test::Pod::Links;
+    [Dirs]
+    module = lib
+    module = tools
+    module = corpus/hello
 
-    if ( exists $ENV{AUTOMATED_TESTING} ) {
-        print "1..0 # SKIP these tests during AUTOMATED_TESTING\n";
-        exit 0;
-    }
-
-    Test::Pod::Links->new->all_pod_files_ok(qw(
-        corpus/7_links.pod
-        corpus/hello
-        lib
-        tools
-    ));
+    [Files]
+    pod = corpus/7_links.pod
 
 ## Example 3 Specify a different user agent for [HTTP::Tiny](https://metacpan.org/pod/HTTP::Tiny)
 
@@ -240,7 +235,8 @@ decide which URLs to skip over.
 
 # SEE ALSO
 
-[HTTP::Tiny](https://metacpan.org/pod/HTTP::Tiny), [Test::More](https://metacpan.org/pod/Test::More), [Test::Pod::LinkCheck](https://metacpan.org/pod/Test::Pod::LinkCheck), [Test::Pod::No404s](https://metacpan.org/pod/Test::Pod::No404s)
+[HTTP::Tiny](https://metacpan.org/pod/HTTP::Tiny), [Test::More](https://metacpan.org/pod/Test::More), [Test::Pod::LinkCheck](https://metacpan.org/pod/Test::Pod::LinkCheck), [Test::Pod::No404s](https://metacpan.org/pod/Test::Pod::No404s),
+[XT::Files](https://metacpan.org/pod/XT::Files)
 
 # SUPPORT
 
@@ -265,7 +261,7 @@ Sven Kirmess <sven.kirmess@kzone.ch>
 
 # COPYRIGHT AND LICENSE
 
-This software is Copyright (c) 2018 by Sven Kirmess.
+This software is Copyright (c) 2018-2019 by Sven Kirmess.
 
 This is free software, licensed under:
 
