@@ -1,6 +1,8 @@
 Revision history for Test-Pod-Links
 
 {{$NEXT}}
+
+0.003  2019-08-02 08:21:21 UTC
   - API change: all_pod_files_ok() no longer takes files or directories
     as arguments. The files to be tested is now obtained from XT::Files.
 
