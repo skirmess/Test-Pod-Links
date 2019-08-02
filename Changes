@@ -1,6 +1,8 @@
 Revision history for Test-Pod-Links
 
 {{$NEXT}}
+  - API change: all_pod_files_ok() no longer takes files or directories
+    as arguments. The files to be tested is now obtained from XT::Files.
 
   - Import croak from Carp instead of calling Carp::croak
   - Removed minimal dependency on Test::TempDir::Tiny 0.017
