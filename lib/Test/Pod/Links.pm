@@ -24,7 +24,7 @@ my $TEST = Test::Builder->new();
 #   Test::Builder::Tester because TBT cannot test them.
 
 sub all_pod_files_ok {
-    my $self = shift;
+    my ($self) = @_;
 
     my @files = Test::XTFiles->new->all_files();
     if ( !@files ) {
@@ -300,12 +300,12 @@ Calls the C<all_files> method of L<Test::XTFiles> to get all the files to
 be tested. Then, C<contains_pod> from L<Pod::Simple::Search> is used to
 identify files that contain Pod.
 
-All files that contain Pod will be checked  by calling C<pod_file_ok>.
+All files that contain Pod will be checked by calling C<pod_file_ok>.
 
 It calls C<done_testing> or C<skip_all> so you can't have already called
 C<plan>.
 
-<all_pod_files_ok> returns something I<true> if all web links are reachable
+C<all_pod_files_ok> returns something I<true> if all web links are reachable
 and I<false> otherwise.
 
 Please see L<XT::Files> for how to configure the files to be checked.

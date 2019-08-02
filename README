@@ -79,8 +79,8 @@ USAGE
     It calls done_testing or skip_all so you can't have already called
     plan.
 
-    <all_pod_files_ok> returns something true if all web links are
-    reachable and false otherwise.
+    all_pod_files_ok returns something true if all web links are reachable
+    and false otherwise.
 
     Please see XT::Files for how to configure the files to be checked.
 

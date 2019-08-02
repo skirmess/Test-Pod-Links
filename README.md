@@ -74,12 +74,12 @@ Calls the `all_files` method of [Test::XTFiles](https://metacpan.org/pod/Test::X
 be tested. Then, `contains_pod` from [Pod::Simple::Search](https://metacpan.org/pod/Pod::Simple::Search) is used to
 identify files that contain Pod.
 
-All files that contain Pod will be checked  by calling `pod_file_ok`.
+All files that contain Pod will be checked by calling `pod_file_ok`.
 
 It calls `done_testing` or `skip_all` so you can't have already called
 `plan`.
 
-&lt;all\_pod\_files\_ok> returns something _true_ if all web links are reachable
+`all_pod_files_ok` returns something _true_ if all web links are reachable
 and _false_ otherwise.
 
 Please see [XT::Files](https://metacpan.org/pod/XT::Files) for how to configure the files to be checked.
