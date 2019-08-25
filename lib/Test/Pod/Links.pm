@@ -316,10 +316,9 @@ L<XT::Files>.
 
 =head1 EXAMPLES
 
-=head2 Example 1 Default Usage
+=head2 Example 1 Default usage
 
-Check the web links in all files in the F<bin>, F<script> and F<lib>
-directory.
+Check the web links in all files returned by L<XT::Files>.
 
     use 5.006;
     use strict;

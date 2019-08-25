@@ -90,10 +90,9 @@ are now silently discarded and the method is now configured with
 
 # EXAMPLES
 
-## Example 1 Default Usage
+## Example 1 Default usage
 
-Check the web links in all files in the `bin`, `script` and `lib`
-directory.
+Check the web links in all files returned by [XT::Files](https://metacpan.org/pod/XT::Files).
 
     use 5.006;
     use strict;

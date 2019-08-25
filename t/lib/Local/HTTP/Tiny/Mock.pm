@@ -4,6 +4,8 @@ use 5.006;
 use strict;
 use warnings;
 
+our $VERSION = '0.001';
+
 ## no critic (CodeLayout::RequireTrailingCommaAtNewline)
 ## no critic (ErrorHandling::RequireCarping)
 ## no critic (ValuesAndExpressions::ProhibitEmptyQuotes
