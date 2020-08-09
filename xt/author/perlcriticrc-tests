@@ -1,5 +1,6 @@
 [ControlStructures::ProhibitPostfixControls]
 flowcontrol = BAIL_OUT die skip
+[-Freenode::DiscouragedModules]
 [-RegularExpressions::ProhibitFixedStringMatches]
 [-RegularExpressions::RequireDotMatchAnything]
 [-RegularExpressions::RequireExtendedFormatting]
