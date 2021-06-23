@@ -41,7 +41,7 @@ sub main {
         my $ua  = bless {}, 'Local::HTTP::NoUA';
         my $obj = $class->new( ua => $ua );
 
-        isa_ok( $obj, $class, "new( ua => ...)) returns a $class object" );
+        isa_ok( $obj,      $class,              "new( ua => ...)) returns a $class object" );
         isa_ok( $obj->_ua, 'Local::HTTP::NoUA', '... and configures the ua' );
     }
 

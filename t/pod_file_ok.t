@@ -25,8 +25,8 @@ sub main {
         my $obj = $class->new;
 
         #
-        like( exception { $obj->pod_file_ok() },      qr{usage: pod_file_ok[(]FILE[)]}, 'pod_file_ok() throws an exception with too few arguments' );
-        like( exception { $obj->pod_file_ok(undef) }, qr{usage: pod_file_ok[(]FILE[)]}, '... undef for a file name' );
+        like( exception { $obj->pod_file_ok() },                 qr{usage: pod_file_ok[(]FILE[)]}, 'pod_file_ok() throws an exception with too few arguments' );
+        like( exception { $obj->pod_file_ok(undef) },            qr{usage: pod_file_ok[(]FILE[)]}, '... undef for a file name' );
         like( exception { $obj->pod_file_ok( 'file', 'name' ) }, qr{usage: pod_file_ok[(]FILE[)]}, '... too many arguments' );
 
         #
@@ -181,7 +181,7 @@ sub main {
                   https://metacpan.org/
                   https://www.cpan.org/
                   https://www.perl.com/
-                  ),
+                ),
             ],
             '... there were five head requests to the UA',
         );
@@ -213,7 +213,7 @@ sub main {
                   https://metacpan.org/
                   https://www.cpan.org/
                   https://www.perl.com/
-                  ),
+                ),
             ],
             '... there were four head requests to the UA',
         );
@@ -243,7 +243,7 @@ sub main {
                   https://metacpan.org/
                   https://www.cpan.org/
                   https://www.perl.com/
-                  ),
+                ),
             ],
             '... there were three head requests to the UA',
         );
@@ -272,7 +272,7 @@ sub main {
                 qw(
                   http://cpanmin.us/
                   https://www.perl.com/
-                  ),
+                ),
             ],
             '... there were two head requests to the UA',
         );
