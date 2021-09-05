@@ -14,10 +14,10 @@ Version 0.003
 # DESCRIPTION
 
 Tests that all HTTP/S links from Pod documentation are reachable by calling
-the `head` method of [HTTP::Tiny](https://metacpan.org/pod/HTTP::Tiny) on them.
+the `head` method of [HTTP::Tiny](https://metacpan.org/pod/HTTP%3A%3ATiny) on them.
 
 All non HTTP/S links are ignored. You can check them with
-[Test::Pod::LinkCheck](https://metacpan.org/pod/Test::Pod::LinkCheck).
+[Test::Pod::LinkCheck](https://metacpan.org/pod/Test%3A%3APod%3A%3ALinkCheck).
 
 This test is an author test and should not run on end-user installations.
 Recommendation is to put it into your `xt` instead of your `t` directory.
@@ -54,15 +54,15 @@ URLs that match one of these regexes are not checked.
 
 ### ua (optional)
 
-The `ua` argument is used to supply your own, [HTTP::Tiny](https://metacpan.org/pod/HTTP::Tiny) compatible,
-user agent. Use this if you need a special configured [HTTP::Tiny](https://metacpan.org/pod/HTTP::Tiny) user
+The `ua` argument is used to supply your own, [HTTP::Tiny](https://metacpan.org/pod/HTTP%3A%3ATiny) compatible,
+user agent. Use this if you need a special configured [HTTP::Tiny](https://metacpan.org/pod/HTTP%3A%3ATiny) user
 agent.
 
 ## pod\_file\_ok( FILENAME )
 
 This will run a test for parsing the Pod and another test for every web link
 found in the Pod. It is therefore unlikely to know the exact number of
-tests that will run in advance. Use `done_testing` from [Test::More](https://metacpan.org/pod/Test::More) if
+tests that will run in advance. Use `done_testing` from [Test::More](https://metacpan.org/pod/Test%3A%3AMore) if
 you call this test directly instead of a `plan`.
 
 `pod_file_ok` returns something _true_ if all web links are reachable
@@ -70,8 +70,8 @@ and _false_ otherwise.
 
 ## all\_pod\_files\_ok
 
-Calls the `all_files` method of [Test::XTFiles](https://metacpan.org/pod/Test::XTFiles) to get all the files to
-be tested. Then, `contains_pod` from [Pod::Simple::Search](https://metacpan.org/pod/Pod::Simple::Search) is used to
+Calls the `all_files` method of [Test::XTFiles](https://metacpan.org/pod/Test%3A%3AXTFiles) to get all the files to
+be tested. Then, `contains_pod` from [Pod::Simple::Search](https://metacpan.org/pod/Pod%3A%3ASimple%3A%3ASearch) is used to
 identify files that contain Pod.
 
 All files that contain Pod will be checked by calling `pod_file_ok`.
@@ -82,17 +82,17 @@ It calls `done_testing` or `skip_all` so you can't have already called
 `all_pod_files_ok` returns something _true_ if all web links are reachable
 and _false_ otherwise.
 
-Please see [XT::Files](https://metacpan.org/pod/XT::Files) for how to configure the files to be checked.
+Please see [XT::Files](https://metacpan.org/pod/XT%3A%3AFiles) for how to configure the files to be checked.
 
 WARNING: The API was changed with 0.003. Arguments to `all_pod_files_ok`
 are now silently discarded and the method is now configured with
-[XT::Files](https://metacpan.org/pod/XT::Files).
+[XT::Files](https://metacpan.org/pod/XT%3A%3AFiles).
 
 # EXAMPLES
 
 ## Example 1 Default usage
 
-Check the web links in all files returned by [XT::Files](https://metacpan.org/pod/XT::Files).
+Check the web links in all files returned by [XT::Files](https://metacpan.org/pod/XT%3A%3AFiles).
 
     use 5.006;
     use strict;
@@ -120,7 +120,7 @@ file in the root directory of your distribution.
     [Files]
     pod = corpus/7_links.pod
 
-## Example 3 Specify a different user agent for [HTTP::Tiny](https://metacpan.org/pod/HTTP::Tiny)
+## Example 3 Specify a different user agent for [HTTP::Tiny](https://metacpan.org/pod/HTTP%3A%3ATiny)
 
     use 5.006;
     use strict;
@@ -208,34 +208,34 @@ file in the root directory of your distribution.
 
 # RATIONALE
 
-## Why this instead of [Test::Pod::No404s](https://metacpan.org/pod/Test::Pod::No404s)?
+## Why this instead of [Test::Pod::No404s](https://metacpan.org/pod/Test%3A%3APod%3A%3ANo404s)?
 
-This module is much like [Test::Pod::No404s](https://metacpan.org/pod/Test::Pod::No404s). It checks that HTTP/S links
+This module is much like [Test::Pod::No404s](https://metacpan.org/pod/Test%3A%3APod%3A%3ANo404s). It checks that HTTP/S links
 in your Pod are valid.
 
-There are a few differences to [Test::Pod::No404s](https://metacpan.org/pod/Test::Pod::No404s):
+There are a few differences to [Test::Pod::No404s](https://metacpan.org/pod/Test%3A%3APod%3A%3ANo404s):
 
-- [Test::Pod::No404s](https://metacpan.org/pod/Test::Pod::No404s) does not cache the result. If you add a link to your
+- [Test::Pod::No404s](https://metacpan.org/pod/Test%3A%3APod%3A%3ANo404s) does not cache the result. If you add a link to your
 github repository in every `.pm` file it will verify the same link for
 every module by connecting to the same URL again and again. That is slow,
 excessive and not very nice to the web server. `Test::Pod::Links` caches the
 result of every request only issuing a head request once for every URL.
-- [Test::Pod::No404s](https://metacpan.org/pod/Test::Pod::No404s) converts the Pod to text and then checks everything
+- [Test::Pod::No404s](https://metacpan.org/pod/Test%3A%3APod%3A%3ANo404s) converts the Pod to text and then checks everything
 that looks like a web URL which will pick up things that look like a URL but
 are not a link. `Test::Pod::Links` only checks HTTP/S links inside an `L`
 tag.
 - `Test::Pod::Links` supports a `ua` argument with the `new` method that
-allows you to pass a custom, [HTTP::Tiny](https://metacpan.org/pod/HTTP::Tiny) compatible, user agent to it. It
-can also be used to configure [HTTP::Tiny](https://metacpan.org/pod/HTTP::Tiny) to your liking, e.g. configuring
+allows you to pass a custom, [HTTP::Tiny](https://metacpan.org/pod/HTTP%3A%3ATiny) compatible, user agent to it. It
+can also be used to configure [HTTP::Tiny](https://metacpan.org/pod/HTTP%3A%3ATiny) to your liking, e.g. configuring
 the user-agent string.
-- [Test::Pod::No404s](https://metacpan.org/pod/Test::Pod::No404s) uses a hard coded list of hostnames to ignore, with
+- [Test::Pod::No404s](https://metacpan.org/pod/Test%3A%3APod%3A%3ANo404s) uses a hard coded list of hostnames to ignore, with
 `Test::Pod::Links` you have the `ignore` and `ignore_match` option to
 decide which URLs to skip over.
 
 # SEE ALSO
 
-[HTTP::Tiny](https://metacpan.org/pod/HTTP::Tiny), [Test::More](https://metacpan.org/pod/Test::More), [Test::Pod::LinkCheck](https://metacpan.org/pod/Test::Pod::LinkCheck), [Test::Pod::No404s](https://metacpan.org/pod/Test::Pod::No404s),
-[XT::Files](https://metacpan.org/pod/XT::Files)
+[HTTP::Tiny](https://metacpan.org/pod/HTTP%3A%3ATiny), [Test::More](https://metacpan.org/pod/Test%3A%3AMore), [Test::Pod::LinkCheck](https://metacpan.org/pod/Test%3A%3APod%3A%3ALinkCheck), [Test::Pod::No404s](https://metacpan.org/pod/Test%3A%3APod%3A%3ANo404s),
+[XT::Files](https://metacpan.org/pod/XT%3A%3AFiles)
 
 # SUPPORT
 
