@@ -786,7 +786,7 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - distribution: 'Debian'
+          - distribution: 'Debian-13'
             packages: >-
               g++
               gcc
@@ -832,10 +832,11 @@ jobs:
         with:
           path: ${{ github.event.repository.name }}
 
-      - uses: Vampire/setup-wsl@v1
+      - uses: Vampire/setup-wsl@v7
         with:
           distribution: ${{ matrix.distribution }}
           additional-packages: ${{ matrix.packages }}
+          wsl-version: 1
 
       - name: sysinfo
         run: systeminfo | Select-String "^OS Name", "^OS Version"
