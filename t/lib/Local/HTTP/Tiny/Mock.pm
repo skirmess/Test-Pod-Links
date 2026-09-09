@@ -30,10 +30,11 @@ our $VERSION = '0.001';
 
 sub new {
     my $class = shift;
-    return bless { history => [] }, $class;
+    return bless { history => [], get_history => [] }, $class;
 }
 
 my %HEAD;
+my %GET;
 
 sub head {
     my ( $self, $url ) = @_;
@@ -45,10 +46,26 @@ sub head {
     return $HEAD{$url};
 }
 
+sub get {
+    my ( $self, $url ) = @_;
+
+    die "URL '$url' is not cached for GET" if !exists $GET{$url};
+
+    push @{ $self->{get_history} }, $url;
+
+    return $GET{$url};
+}
+
 sub history {
     my ($self) = @_;
 
     return @{ $self->{history} };
+}
+
+sub get_history {
+    my ($self) = @_;
+
+    return @{ $self->{get_history} };
 }
 
 # perl -e 'use HTTP::Tiny; use Data::Dumper; print Dumper(HTTP::Tiny->new->head(q{https://www.perl.com/}));'
@@ -179,6 +196,73 @@ $HEAD{'http://192.0.2.7/'} = {
         'content-length' => 58
     },
     'status' => 599
+};
+
+# news.ycombinator.com answers HEAD requests with a '405 Not Allowed' but
+# serves the same URL on a GET request.
+# perl -e 'use HTTP::Tiny; use Data::Dumper; print Dumper(HTTP::Tiny->new->head(q{https://news.ycombinator.com/}));'
+$HEAD{'https://news.ycombinator.com/'} = {
+    'headers' => {
+        'connection'     => 'keep-alive',
+        'content-length' => '150',
+        'content-type'   => 'text/html; charset=utf-8',
+        'date'           => 'Wed, 09 Sep 2026 12:52:21 GMT',
+        'server'         => 'nginx'
+    },
+    'url'      => 'https://news.ycombinator.com/',
+    'success'  => '',
+    'status'   => '405',
+    'reason'   => 'Not Allowed',
+    'protocol' => 'HTTP/1.1'
+};
+
+# perl -e 'use HTTP::Tiny; use Data::Dumper; print Dumper(HTTP::Tiny->new->get(q{https://news.ycombinator.com/}));'
+# (the content was removed)
+$GET{'https://news.ycombinator.com/'} = {
+    'headers' => {
+        'cache-control'             => 'private; max-age=0',
+        'connection'                => 'keep-alive',
+        'content-type'              => 'text/html; charset=utf-8',
+        'date'                      => 'Wed, 09 Sep 2026 12:52:21 GMT',
+        'referrer-policy'           => 'origin',
+        'server'                    => 'nginx',
+        'strict-transport-security' => 'max-age=31556900',
+        'transfer-encoding'         => 'chunked',
+        'vary'                      => 'Accept-Encoding',
+        'x-content-type-options'    => 'nosniff',
+        'x-frame-options'           => 'DENY',
+        'x-xss-protection'          => '1; mode=block'
+    },
+    'url'      => 'https://news.ycombinator.com/',
+    'success'  => 1,
+    'status'   => '200',
+    'reason'   => 'OK',
+    'protocol' => 'HTTP/1.1'
+};
+
+# A URL that is broken for HEAD and for GET.
+$HEAD{'https://www.example.net/not_found'} = {
+    'headers' => {
+        'content-type' => 'text/html; charset=utf-8',
+        'server'       => 'nginx'
+    },
+    'url'      => 'https://www.example.net/not_found',
+    'success'  => '',
+    'status'   => '405',
+    'reason'   => 'Not Allowed',
+    'protocol' => 'HTTP/1.1'
+};
+
+$GET{'https://www.example.net/not_found'} = {
+    'headers' => {
+        'content-type' => 'text/html; charset=utf-8',
+        'server'       => 'nginx'
+    },
+    'url'      => 'https://www.example.net/not_found',
+    'success'  => '',
+    'status'   => '404',
+    'reason'   => 'Not Found',
+    'protocol' => 'HTTP/1.1'
 };
 
 1;

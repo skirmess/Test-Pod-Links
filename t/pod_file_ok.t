@@ -30,6 +30,7 @@ use File::Temp;
 use FindBin qw($RealBin);
 use lib "$RealBin/lib";
 
+use Local::HTTP::HeadOnly;
 use Local::HTTP::Tiny::Mock;
 
 main();
@@ -165,7 +166,8 @@ sub main {
         test_test('pod_file_ok (pod file with three links (one dead))');
 
         is( $rc, undef, '... returns undef' );
-        is_deeply( [ $ua->history ], [qw(https://www.perl.com/ http://192.0.2.7/ https://metacpan.org/)], '... there were three head requests to the UA' );
+        is_deeply( [ $ua->history ],     [qw(https://www.perl.com/ http://192.0.2.7/ https://metacpan.org/)], '... there were three head requests to the UA' );
+        is_deeply( [ $ua->get_history ], [],                                                                  '... and no get request because the head request ran into an internal error' );
     }
 
     {
@@ -292,6 +294,62 @@ sub main {
             ],
             '... there were two head requests to the UA',
         );
+    }
+
+    {
+        my $file = 'corpus/2_links_head_not_allowed.pod';
+
+        my $ua  = Local::HTTP::Tiny::Mock->new();
+        my $obj = $class->new( ua => $ua );
+
+        test_out("ok 1 - Parse Pod ($file)");
+        test_out("ok 2 - https://news.ycombinator.com/ ($file)");
+        test_out("not ok 3 - https://www.example.net/not_found ($file)");
+        test_fail(+4);
+        test_diag(q{});
+        test_diag('Not Found');
+        test_diag(q{});
+        my $rc = $obj->pod_file_ok($file);
+        test_test('pod_file_ok (pod file with two links whose server does not answer head requests)');
+
+        is( $rc, undef, '... returns undef' );
+        is_deeply(
+            [ $ua->history ],
+            [
+                qw(
+                  https://news.ycombinator.com/
+                  https://www.example.net/not_found
+                ),
+            ],
+            '... there were two head requests to the UA',
+        );
+        is_deeply(
+            [ $ua->get_history ],
+            [
+                qw(
+                  https://news.ycombinator.com/
+                  https://www.example.net/not_found
+                ),
+            ],
+            '... and both were retried with a get request',
+        );
+    }
+
+    {
+        my $file = 'corpus/1_link_web.pod';
+
+        my $obj = $class->new( ua => Local::HTTP::HeadOnly->new() );
+
+        test_out("ok 1 - Parse Pod ($file)");
+        test_out("not ok 2 - https://www.perl.com/ ($file)");
+        test_fail(+4);
+        test_diag(q{});
+        test_diag('Not Allowed');
+        test_diag(q{});
+        my $rc = $obj->pod_file_ok($file);
+        test_test('pod_file_ok (a ua without a get method is not retried)');
+
+        is( $rc, undef, '... returns undef' );
     }
 
     {
