@@ -29,13 +29,24 @@ The distribution is built with Dist::Zilla using the external bundle
 `@Author::SKIRMESS` from https://github.com/skirmess/perl-dzil-bundle (see
 `dist.ini`; the bundle is checked out into the git-ignored `dzil-bundle/`).
 
-Many files carry an `Automatically generated file; DO NOT EDIT.` header and are
-regenerated from that bundle rather than maintained here — everything under
-`xt/`, `.perltidyrc`, `.xtfilesrc`, `t/00-load.t`, `.github/workflows/test.yml`,
-`README`, `README.md`, `META.*`, and `Makefile.PL`. `Makefile.PL`'s prereq lists
-and the module `$VERSION` come from Dist::Zilla, so a new dependency belongs in
-the module's `use` statements; changing `Makefile.PL` alone is not enough.
-`README.md` is rendered from the Pod in `lib/Test/Pod/Links.pm` — edit the Pod.
+Three kinds of files here are not maintained by hand:
+
+- **Carry an `Automatically generated file; DO NOT EDIT.` header**: everything
+  under `xt/`, plus `.perltidyrc`, `.xtfilesrc`, `t/00-load.t`, and
+  `xt/author/perlcriticrc`. Check for the header before editing anything in
+  those places.
+- **Produced by Dist::Zilla at build time and committed back**: `README`,
+  `README.md`, `META.json`, `META.yml`, and `Makefile.PL`. `Makefile.PL`'s
+  prereq lists and the module `$VERSION` come from Dist::Zilla, so a new
+  dependency belongs in the module's `use` statements; changing `Makefile.PL`
+  alone is not enough. `README.md` is rendered from the Pod in
+  `lib/Test/Pod/Links.pm` — edit the Pod.
+- **Synced from the author's shared-files repository**:
+  `.github/workflows/test.yml`. It has no header, but every commit that ever
+  touched it is an "updated shared files" sync, so a local edit is likely to be
+  overwritten by the next one — fix it upstream as well.
+
+The `xt/author/*.config` stopword files, in contrast, are hand-maintained.
 
 Changes go in `Changes` under the `{{$NEXT}}` heading.
 

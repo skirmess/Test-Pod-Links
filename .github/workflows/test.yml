@@ -72,7 +72,7 @@ jobs:
       TAR_OPTIONS: --warning=no-unknown-keyword
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           path: ${{ github.event.repository.name }}
 
@@ -163,7 +163,7 @@ jobs:
         working-directory: ${{ github.event.repository.name }}
         if: always()
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v4
         with:
           name: author-tests
           path: ~/.cpanm/work/*/build.log
@@ -182,7 +182,7 @@ jobs:
       TAR_OPTIONS: --warning=no-unknown-keyword
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           path: ${{ github.event.repository.name }}
 
@@ -286,7 +286,7 @@ jobs:
         working-directory: ${{ github.event.repository.name }}
         if: always()
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v4
         with:
           name: linux-perl_${{ matrix.perl }}
           path: ~/.cpanm/work/*/build.log
@@ -300,7 +300,7 @@ jobs:
       TAR_OPTIONS: --warning=no-unknown-keyword
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           path: ${{ github.event.repository.name }}
 
@@ -383,7 +383,7 @@ jobs:
         working-directory: ${{ github.event.repository.name }}
         if: always()
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v4
         with:
           name: macos-cellar
           path: ~/.cpanm/work/*/build.log
@@ -402,7 +402,7 @@ jobs:
       TAR_OPTIONS: --warning=no-unknown-keyword
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           path: ${{ github.event.repository.name }}
 
@@ -500,7 +500,7 @@ jobs:
         working-directory: ${{ github.event.repository.name }}
         if: always()
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v4
         with:
           name: macos-perl_${{ matrix.perl }}
           path: ~/.cpanm/work/*/build.log
@@ -523,7 +523,7 @@ jobs:
         shell: bash -o igncr {0}
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           path: ${{ github.event.repository.name }}
 
@@ -645,7 +645,7 @@ jobs:
           PATH: /usr/local/bin:/usr/bin
         if: always()
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v4
         with:
           name: cygwin-${{ matrix.platform }}
           path: c:/cygwin/home/runneradmin/.cpanm/work/*/build.log
@@ -664,7 +664,7 @@ jobs:
       TAR_OPTIONS: --warning=no-unknown-keyword
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           path: ${{ github.event.repository.name }}
 
@@ -772,7 +772,7 @@ jobs:
         working-directory: ${{ github.event.repository.name }}
         if: always()
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v4
         with:
           name: strawberry-perl_${{ matrix.perl }}
           path: ${{ steps.home.outputs.path }}/.cpanm/work/*/build.log
@@ -828,7 +828,7 @@ jobs:
         shell: wsl-bash {0}
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           path: ${{ github.event.repository.name }}
 
@@ -924,7 +924,7 @@ jobs:
         working-directory: ${{ github.event.repository.name }}
         if: always()
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v4
         with:
           name: wsl1-${{ matrix.distribution }}
           path: ~/.cpanm/work/*/build.log
