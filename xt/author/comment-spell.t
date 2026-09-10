@@ -16,6 +16,10 @@ if ( exists $ENV{AUTOMATED_TESTING} ) {
     exit 0;
 }
 
+# hunspell defaults to the dictionary of the current locale, but the text we
+# check is English.
+local $ENV{DICTIONARY} = 'en_US';
+
 Test::Spelling::Comment->new(
     skip => [
         '^[#] vim: .*',
@@ -27,7 +31,10 @@ Test::Spelling::Comment->new(
 
 __DATA__
 cpanfile
+hunspell
 Kirmess
 LinkCheck
+MERCHANTABILITY
+MetaCPAN
 Sven
 TORTIOUS
