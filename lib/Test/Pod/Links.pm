@@ -20,7 +20,7 @@ use warnings;
 
 package Test::Pod::Links;
 
-our $VERSION = '0.003';
+our $VERSION = '0.004';
 
 use Carp                    ();
 use HTTP::Tiny 0.014        ();
@@ -270,7 +270,7 @@ Test::Pod::Links - test Pod for invalid HTTP/S links
 
 =head1 VERSION
 
-Version 0.003
+Version 0.004
 
 =head1 SYNOPSIS
 
